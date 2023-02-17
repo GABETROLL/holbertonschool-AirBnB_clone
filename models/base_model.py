@@ -13,7 +13,7 @@ class BaseModel:
     on when the model was created and updated
     """
     def __init__(self):
-        self.id = uuid4()
+        self.id = str(uuid4())
         self.created_at = datetime.now(datetime)
         self.updated_at = datetime.now(datetime)
 

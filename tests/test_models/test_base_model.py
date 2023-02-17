@@ -5,7 +5,23 @@ from models.base_model import datetime
 
 
 class TestConstructor(unittest.TestCase):
-    def no_arguments(self):
-
+    def test_no_arguments(self):
         b = BaseModel()
         self.assertEqual(b.created_at, datetime.now())
+
+
+class TestSave(unittest.TestCase):
+    def test_no_arguments(self):
+        b = BaseModel()
+        old_time = b.updated_at
+
+        b.save()
+        new_time = b.updated_at
+
+        self.assertNotEqual(old_time, new_time)
+
+    def test_arguments(self):
+        b = BaseModel()
+
+        with self.assertRaises(TypeError):
+            b.save("hi")
