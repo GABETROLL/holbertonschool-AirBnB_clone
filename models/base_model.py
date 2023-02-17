@@ -18,7 +18,7 @@ class BaseModel:
         self.updated_at = self.created_at
 
     def __str__(self):
-        return f"[BaseModel] ({self.id}) {self.__dict__}"
+        return f"[{type(self)}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """
