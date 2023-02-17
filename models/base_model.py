@@ -14,8 +14,8 @@ class BaseModel:
     """
     def __init__(self):
         self.id = str(uuid4())
-        self.created_at = datetime.now(datetime)
-        self.updated_at = datetime.now(datetime)
+        self.created_at = datetime.now()
+        self.updated_at = self.created_at
 
     def __str__(self):
         return f"[BaseModel] ({self.id}) {self.__dict__}"
@@ -24,7 +24,7 @@ class BaseModel:
         """
         changes the 'updated_at' attribute to now.
         """
-        self.updated_at = datetime.now(datetime)
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """
