@@ -33,8 +33,10 @@ class BaseModel:
         name of the class, and the dates in the dict's
         values are made in string format.
         """
-        result = self.__dict__ | {"__class__": "BaseModel"}
-        result["created_at"] = self.created_at.iso_format("%Y-%m-%dT%H:%M:%S.%f")
-        result["updated_at"] = self.updated_at.iso_format("%Y-%m-%dT%H:%M:%S.%f")
-
-        return result
+        return {"__class__": "BaseModel",
+                "id": self.id,
+                "created_at": self.created_at.
+                isoformat("%Y-%m-%dT%H:%M:%S.%f"),
+                "updated_at": self.updated_at.
+                isoformat("%Y-%m-%dT%H:%M:%S.%f")
+                }
