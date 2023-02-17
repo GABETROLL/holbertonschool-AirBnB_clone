@@ -35,7 +35,12 @@ class TestSave(unittest.TestCase):
 
 
 class TestToDict(unittest.TestCase):
-    def test_keys(self):
+    def test_items(self):
         b = BaseModel()
         result = b.to_dict()
-        self.assertEqual(result.keys(), ["__class__", "id", "created_at", "updated_at"])
+
+        self.assertDictEqual(result, {"__class__": "BaseModel",
+                                         "id": str(b.id),
+                                         "created_at": b.created_at.isoformat(),
+                                         "updated_at": b.updated_at.isoformat()
+                                         })
