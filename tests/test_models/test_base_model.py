@@ -10,6 +10,13 @@ class TestConstructor(unittest.TestCase):
         self.assertLess(b.created_at, datetime.now())
 
 
+class TestToString(unittest.TestCase):
+    def test_no_methods(self):
+        b = BaseModel()
+
+        self.assertEqual(str(b), f"[BaseModel] ({b.id}) {b.__dict__}")
+
+        
 class TestSave(unittest.TestCase):
     def test_no_arguments(self):
         b = BaseModel()
@@ -25,3 +32,10 @@ class TestSave(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             b.save("hi")
+
+
+class TestToDict(unittest.TestCase):
+    def test_keys(self):
+        b = BaseModel()
+        result = b.to_dict()
+        self.assertEqual(result.keys(), ["__class__", "id", "created_at", "updated_at"])
