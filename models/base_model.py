@@ -27,9 +27,13 @@ class BaseModel:
             if attr == "__class__":
                 continue
 
-            if attr in ("created_at", "updated_at"):
+            result = value
+
+            if attr in ("created_at", "updated_at") and \
+                    type(value) == str:
                 result = datetime.fromisoformat(value)
-                self.__setattr__(attr, result)
+
+            self.__setattr__(attr, result)
 
     def __str__(self):
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
