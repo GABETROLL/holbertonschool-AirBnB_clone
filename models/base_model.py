@@ -16,20 +16,24 @@ class BaseModel:
     except '__class__'.
     """
     def __init__(self, *args, **kwargs):
-        if not kwargs:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = self.created_at
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = self.created_at
 
+        if not kwargs:
             return
 
-        for attr, value in kwargs.keys():
+        for attr, value in kwargs.items():
             if attr == "__class__":
                 continue
 
-            if attr in ("created_at", "updated_at"):
+            result = value
+
+            if attr in ("created_at", "updated_at") and \
+                    type(value) == str:
                 result = datetime.fromisoformat(value)
-                self.__setattr__(attr, result)
+
+            self.__setattr__(attr, result)
 
     def __str__(self):
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
