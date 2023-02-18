@@ -16,14 +16,14 @@ class BaseModel:
     except '__class__'.
     """
     def __init__(self, *args, **kwargs):
-        if not kwargs:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = self.created_at
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = self.created_at
 
+        if not kwargs:
             return
 
-        for attr, value in kwargs.keys():
+        for attr, value in kwargs.items():
             if attr == "__class__":
                 continue
 
