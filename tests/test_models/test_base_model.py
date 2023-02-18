@@ -44,7 +44,7 @@ class TestConstructor(unittest.TestCase):
         self.assertEqual(b.updated_at, datetime(1987, 7, 27))
 
         b = BaseModel(random_attribute="God loves you!!")
-        self.assertIn("random_attribute", b.__dict__)
+        self.assertIn("random_attribute", b.to_dict())
         self.assertEqual(b.random_attribute, "God loves you!!")
 
         now = datetime.now()
@@ -57,13 +57,15 @@ class TestConstructor(unittest.TestCase):
         attr_dictionary = {"id": str(uuid4()), "created_at": now,
                            "updated_at": now, "__class__": object}
         b = BaseModel(**attr_dictionary)
+        attr_dictionary.pop("__class__")
         self.assertDictEqual(b.__dict__, attr_dictionary)
         self.assertEqual(b.__class__, BaseModel)
 
         now = datetime.now()
         attr_dictionary = {"random_attribute": "idk"}
         b = BaseModel(**attr_dictionary)
-        self.assertIn("idk", b.__dict__)
+        self.assertIn("random_attribute", b.to_dict())
+        self.assertEqual(b.to_dict()["random_attribute"], "idk")
 
 
 class TestToString(unittest.TestCase):
