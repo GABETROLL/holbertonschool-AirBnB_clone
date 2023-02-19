@@ -35,6 +35,5 @@ class FileStorage:
                 obj_dir = json.loads(f.read())
                 for key, value in obj_dir.items():
                     self.__objects[key] = BaseModel(**value)
-        except:
+        except FileNotFoundError:
             pass
-
