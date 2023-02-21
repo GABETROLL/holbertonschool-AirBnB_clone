@@ -5,7 +5,6 @@ import json
 # from models.base_model import BaseModel
 
 
-
 class FileStorage:
     """Initializing the Filestorage class"""
     __file_path = 'file.json'
@@ -25,7 +24,8 @@ class FileStorage:
         'FileStorage.__objects'.
         """
         if not isinstance(obj, dict):
-            raise TypeError("new 'obj' must be a model in its dictionary representation.")
+            msg = "new 'obj' must be a model in its dictionary representation."
+            raise TypeError(msg)
 
         key_obj = "{}.{}".format(obj["__class__"], obj["id"])
         self.__objects[key_obj] = obj
