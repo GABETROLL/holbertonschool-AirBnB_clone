@@ -26,7 +26,7 @@ class BaseModel:
         self.updated_at = self.created_at
 
         if not kwargs:
-            storage.new(self)
+            storage.new(self.to_dict())
             return
 
         for attr, value in kwargs.items():

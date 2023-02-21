@@ -97,6 +97,8 @@ class TestToDict(unittest.TestCase):
         b = BaseModel()
         result = b.to_dict()
 
+        self.assertIsInstance(result, dict)
+
         self.assertDictEqual(result, {"__class__": "BaseModel",
                                          "id": str(b.id),
                                          "created_at": b.created_at.isoformat(),
