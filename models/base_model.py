@@ -5,6 +5,7 @@ updated
 """
 from uuid import uuid4
 from datetime import datetime
+from models.engine import storage
 
 
 class BaseModel:
@@ -14,6 +15,10 @@ class BaseModel:
 
     Uses **kwargs to set the attributes of 'self',
     except '__class__'.
+
+    Adds self to storage file, using 'FileStorage' instance
+    imported from engine, as a side-effect of not using
+    'kwargs'.
     """
     def __init__(self, *args, **kwargs):
         self.id = str(uuid4())
@@ -21,6 +26,7 @@ class BaseModel:
         self.updated_at = self.created_at
 
         if not kwargs:
+            storage.new(self)
             return
 
         for attr, value in kwargs.items():
