@@ -1,6 +1,6 @@
 import unittest
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
+from models.engine import FileStorage
 from json import dumps
 
 
@@ -38,7 +38,7 @@ class TestNew(unittest.TestCase):
         dict_key = f"BaseModel.{test_base_model.id}"
 
         self.assertIn(dict_key, file_storage_objs)
-        self.assertEqual(file_storage_objs[dict_key], test_base_model)
+        self.assertEqual(file_storage_objs[dict_key], test_base_model.to_dict())
 
     def test_incorrect_type(self):
         test_instance = FileStorage()
@@ -60,9 +60,7 @@ class TestSave(unittest.TestCase):
         test_instance.save()
 
         with open(FileStorage._FileStorage__file_path, "r") as file:
-            test_dict = test_instance.all()
-            expected_output = {key: obj.to_dict() for key, obj in test_dict.items()}
-            expected_output = dumps(expected_output)
+            expected_output = dumps(test_instance.all())
             self.assertEqual(file.read(), expected_output)
 
     def test_arguments(self):
