@@ -8,6 +8,14 @@ class TestAll(unittest.TestCase):
     def test_no_arguments(self):
         test_instance = FileStorage()
         self.assertEqual(test_instance.all(), FileStorage._FileStorage__objects)
+    
+    def test_objects_type(self):
+        test_instance = FileStorage()
+
+        for obj in test_instance.all().values():
+            self.assertIsInstance(obj, dict)
+        # all model objects in FileStorage.all()'s dictionary should
+        # be the dictionary representation of those models.
 
     def test_arguments(self):
         test_instance = FileStorage()
@@ -29,23 +37,21 @@ class TestNew(unittest.TestCase):
         as the key, and the obj as the value
         """
         test_instance = FileStorage()
-
-        test_base_model = BaseModel()
-        test_instance.new(test_base_model)
+        test_base_model_dict = BaseModel().to_dict()
+        test_instance.new(test_base_model_dict)
 
         file_storage_objs = test_instance.all()
-
-        dict_key = f"BaseModel.{test_base_model.id}"
+        dict_key = f"BaseModel.{test_base_model_dict['id']}"
 
         self.assertIn(dict_key, file_storage_objs)
-        self.assertEqual(file_storage_objs[dict_key], test_base_model.to_dict())
+        self.assertEqual(file_storage_objs[dict_key], test_base_model_dict)
 
     def test_incorrect_type(self):
         test_instance = FileStorage()
 
         test_base_model = "AAAAAAAAAAAAAA"
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             test_instance.new(test_base_model)
 
     def test_more_arguments(self):

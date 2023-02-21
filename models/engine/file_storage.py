@@ -9,25 +9,40 @@ class FileStorage:
     __objects = {}
 
     def all(self):
-        """returning the dictionary of objects"""
+        """
+        returning the dictionary of model
+        object dictionaries
+        """
         return self.__objects
 
     def new(self, obj):
-        """sets in the object to match the name"""
-        cls_name = type(obj).__name__
-        key_obj = "{}.{}".format(cls_name, obj.id)
-        self.__objects[key_obj] = obj.to_dict()
+        """
+        Adds in the object dictionary 'obj'
+        with its class name and id into
+        'FileStorage.__objects'.
+        """
+        if not isinstance(obj, dict):
+            raise TypeError("new 'obj' must be a model in its dictionary representation.")
+
+        key_obj = "{}.{}".format(obj["__class__"], obj["id"])
+        self.__objects[key_obj] = obj
 
     def save(self):
-        """serializes the objects to JSON files"""
+        """
+        Serializes the objects to JSON file
+        'FileStorage.__file_path'.
+        """
         with open(self.__file_path, "w") as f:
             json.dump(self.__objects, f)
 
     def reload(self):
-        """Deserializes the JSON file to __objects"""
+        """
+        Deserializes the JSON file to
+        'FileStorage.__objects'.
+        """
         try:
-            with open(self.__file_path, 'r', encoding="UTF8") as f:
-                obj_dir = json.loads(f.read())
+            with open(self.__file_path, 'r', encoding="UTF8") as file:
+                obj_dir = json.loads(file.read())
                 self.__objects.update(obj_dir)
         except FileNotFoundError:
             pass
