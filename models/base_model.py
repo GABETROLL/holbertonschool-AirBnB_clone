@@ -5,7 +5,7 @@ updated
 """
 from uuid import uuid4
 from datetime import datetime
-from models.engine import storage
+from models.__init__ import storage
 
 
 class BaseModel:
@@ -48,6 +48,7 @@ class BaseModel:
         """
         changes the 'updated_at' attribute to now.
         """
+        storage.save()
         self.updated_at = datetime.now()
 
     def to_dict(self):
