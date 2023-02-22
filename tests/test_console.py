@@ -7,6 +7,38 @@ from models.engine.file_storage import FileStorage
 from console import HBNBCommand
 
 
+class TestWrongSyntax(unittest.TestCase):
+    """
+    Makes sure that bad syntax doesn't affect any
+    storage nor instances.
+    """
+    def test_arong_syntax(self):
+        """
+        The 'HBNBCommand.create' shouldn't save anything
+        to the 'FileStorage' if the class name is missing,
+        and just the parenthesis of the class' __init__
+        are in the line.
+
+        (and should also print: "*** Unknown syntax: <the line>")
+        """
+        storage = FileStorage()
+        test_instance = HBNBCommand()
+
+        for bad_line in ("()", ";", "^%&^", "** cLasS mISsiNG **", "?",
+                         "# this isn't a comment!!!", "<Ctrl + D>"):
+            # (that "<Ctrl + D>" up there isn't actually the REAL
+            # <Ctrl + D>, it's only its string representation, and
+            # therefore an impostor)
+
+            # And that comment isn't a comment
+
+            # (i think)
+            previous_storage = storage.all()
+            test_instance.do_create(bad_line)
+            storage_after = storage.all()
+
+            self.assertDictEqual(previous_storage, storage_after)
+
 class TestDoEOF(unittest.TestCase):
     """
     Tests the 'HBNBCommand.do_EOF' method.
@@ -56,11 +88,11 @@ class TestDoCreate(unittest.TestCase):
     'BaseModel') and makes sure that constructing
     the objects works.
     """
-    def test_empty_line(self):
+    def test_no_class_name(self):
         """
-        An empty line should save any new
-        objects into the FileStorage object
-        collection, nor the file.
+        "create" followed by nothing line should
+        not save any new objects into the FileStorage
+        object collection, nor the file.
 
         (and also should print: "** class name missing **")
         """
@@ -68,34 +100,7 @@ class TestDoCreate(unittest.TestCase):
         test_instance = HBNBCommand()
 
         previous_storage = storage.all()
-        test_instance.do_create("")
-        storage_after = storage.all()
-
-        self.assertDictEqual(previous_storage, storage_after)
-
-    def test_just_parenthesis(self):
-        """
-        The 'HBNBCommand.create' shouldn't save anything
-        to the 'FileStorage' if the class name is missing,
-        and just the parenthesis of the class' __init__
-        are in the line.
-
-        (and should also print: "*** Unknown syntax: ()")
-        """
-        pass
-
-    def test_incorrect_type(self):
-        """
-        The 'HBNBCommand.create' shouldn't save anything
-        to the 'FileStorage' if the type doesn't exist
-        
-        (and should also print: "** class doesn't exist **")
-        """
-        storage = FileStorage()
-        test_instance = HBNBCommand()
-
-        previous_storage = storage.all()
-        test_instance.do_create("int()")
+        test_instance.do_create("create")
         storage_after = storage.all()
 
         self.assertDictEqual(previous_storage, storage_after)
