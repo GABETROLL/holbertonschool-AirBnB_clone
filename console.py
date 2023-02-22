@@ -8,7 +8,7 @@ import cmd
 import models
 # from models.amenity import Amenity
 from models.base_model import BaseModel
-# from models.city import City
+from models.city import City
 # from models.place import Place
 # from models.review import Review
 # from models.state import State
@@ -22,11 +22,6 @@ import shlex
 classGroup = {"Amenity": Amenity, "BaseModel": BaseModel,
               "City": City, "Place": Place, "Review": Review,
               "State": State, "User": User}
-=======
-classGroup = {"BaseModel": BaseModel}
-# City, Place, Review, State and User will be here, too,
-# soon.
->>>>>>> 01ea4024abf1b7eef4395504d440fa829512bad6
 
 
 class HBNBCommand(cmd.Cmd):
