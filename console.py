@@ -18,7 +18,6 @@ from models import storage
 import shlex
 
 
-<<<<<<< HEAD
 classGroup = {"Amenity": Amenity, "BaseModel": BaseModel,
               "City": City, "Place": Place, "Review": Review,
               "State": State, "User": User}
