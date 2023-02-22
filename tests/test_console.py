@@ -126,3 +126,7 @@ class TestDoCreate(unittest.TestCase):
         new_key = difference.keys()[0]
         self.assertEqual(type(new_key), str)
         self.assertTrue(new_key.startswith("BaseModel"))
+
+
+class TestDoAll(unittest.TestCase):
+    pass

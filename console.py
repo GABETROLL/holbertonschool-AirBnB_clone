@@ -6,6 +6,7 @@ Creating the command interpreter console
 
 import cmd
 import models
+from datetime import datetime
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -114,22 +115,15 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         """Prints string representations of instances"""
         className_line = shlex.split(line)
-        obj_list = []
-        if len(className_line) == 0:
-            for value in models.storage.all().values():
-                obj_list.append(str(value))
-            print("[", end="")
-            print(", ".join(obj_list), end="")
-            print("]")
-        elif className_line[0] in classGroup:
-            for key in models.storage.all():
-                if className_line[0] in key:
-                    obj_list.append(str(models.storage.all()[key]))
-            print("[", end="")
-            print(", ".join(obj_list), end="")
-            print("]")
-        else:
+
+        if className_line and not className_line[0] in classGroup:
             print("** class doesn't exist **")
+
+        obj_list = []
+        for obj in models.storage.all().values():
+            if not className_line or obj["__class__"] == className_line[0]:
+                obj_list.append(str(classGroup[obj["__class__"]](**obj)))
+        print(obj_list)
 
     def do_update(self, line):
         """
