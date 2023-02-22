@@ -65,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
             instance = eval(string)
             print(instance.id)
             instance.save()
-        except Exception:
+        except:
             print("** class doesn't exist **")
 
     def do_show(self, arg):
@@ -114,16 +114,22 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         """Prints string representations of instances"""
         className_line = shlex.split(line)
-
-        if className_line and className_line[0] in classGroup:
-            print("** class doesn't exist **")
-            return
-
         obj_list = []
-        for obj in models.storage.all().values():
-            if not className_line or obj["__class__"] == className_line[0]:
-                obj_list.append(f"[{obj['__class__']}] ({obj['id']}) {obj}")
-        print(obj_list)
+        if len(className_line) == 0:
+            for value in models.storage.all().values():
+                obj_list.append(str(value))
+            print("[", end="")
+            print(", ".join(obj_list), end="")
+            print("]")
+        elif className_line[0] in classGroup:
+            for key in models.storage.all():
+                if className_line[0] in key:
+                    obj_list.append(str(models.storage.all()[key]))
+            print("[", end="")
+            print(", ".join(obj_list), end="")
+            print("]")
+        else:
+            print("** class doesn't exist **")
 
     def do_update(self, line):
         """
@@ -170,7 +176,6 @@ class HBNBCommand(cmd.Cmd):
                 return False
 
         setattr(instance_found, args[2], args[3])
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
