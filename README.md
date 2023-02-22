@@ -102,7 +102,7 @@ $
 <h2>Authors</h2>
 <ul>
 <h3>
-<li>Norman T. Padovani (@Ivanzkaa)</li>
+<li>Norman T. Padovani</li>
 <li>Gabriel Fernandez</li>
 </h3>
 </ul>
