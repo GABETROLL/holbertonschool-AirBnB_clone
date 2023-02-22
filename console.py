@@ -18,9 +18,15 @@ from models import storage
 import shlex
 
 
+<<<<<<< HEAD
 classGroup = {"Amenity": Amenity, "BaseModel": BaseModel,
               "City": City, "Place": Place, "Review": Review,
               "State": State, "User": User}
+=======
+classGroup = {"BaseModel": BaseModel}
+# City, Place, Review, State and User will be here, too,
+# soon.
+>>>>>>> 01ea4024abf1b7eef4395504d440fa829512bad6
 
 
 class HBNBCommand(cmd.Cmd):
@@ -65,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
             instance = eval(string)
             print(instance.id)
             instance.save()
-        except:
+        except Exception:
             print("** class doesn't exist **")
 
     def do_show(self, arg):
@@ -176,6 +182,7 @@ class HBNBCommand(cmd.Cmd):
                 return False
 
         setattr(instance_found, args[2], args[3])
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
