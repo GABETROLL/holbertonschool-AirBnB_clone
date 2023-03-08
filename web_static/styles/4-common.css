@@ -8,8 +8,9 @@ body {
 
 .container {
     max-width: 1000px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    /* center horizontally */
-    margin: auto;
+    /* center horizontally AND stay
+    30px from the previous element
+    (in the "4-index.html", this file's
+    corresponding file, it's the header)*/
+    margin: 30px auto;
 }
