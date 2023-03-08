@@ -3,7 +3,9 @@ header {
     height: 70px;
     width: 100%;
     border-bottom: 1px #CCCCCC;
+}
 
-    text-align: left;
+object {
+    float: left;
     vertical-align: center;
 }
