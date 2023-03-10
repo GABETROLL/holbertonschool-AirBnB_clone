@@ -54,7 +54,12 @@
     margin-left: 12.5%;
 }
 
+.filters .locations .popover {
+    padding-bottom: 3.5em;
+}
+
 .filters .popover h2 {
+    margin-top: 15%;
     margin-bottom: 0;
 }
 
@@ -62,12 +67,9 @@
     line-height: 1.7em;
 }
 
-.filters .amenities .popover:last-child {
-    margin-top: 2em;
-}
-
-.filters .amenities .popover:last-child {
-    margin-top: 2em;
+.filters .amenities .popover {
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 .filters .locations:hover .popover, .filters .amenities:hover .popover {
